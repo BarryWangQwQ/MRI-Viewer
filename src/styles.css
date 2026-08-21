@@ -1,0 +1,305 @@
+/*
+ * Medical Viewer — stylesheet
+ *
+ * This file is built into `dist/styles.css` (still exported) and inlined into
+ * the JS entry so importing the package applies styles without a second import.
+ * Two constraints shape everything below, because the viewer has to drop into
+ * someone else's app without touching it:
+ *
+ *  1. No Tailwind preflight. Preflight is a global reset; shipping it would
+ *     restyle the host's headings, lists and form controls. The layers are
+ *     therefore imported individually and `preflight.css` is left out, with a
+ *     narrow replacement reset scoped to `.medical-viewer` instead.
+ *
+ *  2. Design tokens live on `.medical-viewer`, not `:root`. A host that
+ *     already uses shadcn/ui defines `--background`, `--primary` and friends on
+ *     `:root`; writing ours there would silently retheme their whole UI. Using
+ *     `@theme inline` is what makes this work: utilities compile to
+ *     `var(--primary)` directly rather than to an indirection that would resolve
+ *     at `:root`.
+ */
+
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import 'tw-animate-css';
+
+@source './**/*.{ts,tsx}';
+
+/*
+ * `:where(.dark, .dark *)` rather than shadcn's default `:is(.dark *)` so the
+ * variant also matches the element carrying `.dark` — the viewer root is both
+ * the theme boundary and a styled element.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Radix state-attribute shims.
+ *
+ * The shadcn components in `components/ui` are written against the newer Radix
+ * convention of discrete attributes (`data-checked`, `data-active`, …), while
+ * `radix-ui@1.6.x` still emits `data-state` and `data-orientation`. Without
+ * these, Tailwind would generate `[data-checked]` selectors that never match and
+ * every toggle would silently render in its off state.
+ *
+ * Declaring the variants explicitly takes precedence over the built-in
+ * functional `data-*` variant, so the component sources can stay untouched and
+ * upgrade cleanly once Radix catches up.
+ */
+@custom-variant data-active (&[data-state='active']);
+@custom-variant data-checked (&[data-state='checked']);
+@custom-variant data-unchecked (&[data-state='unchecked']);
+@custom-variant data-open (&[data-state='open']);
+@custom-variant data-closed (&[data-state='closed']);
+@custom-variant data-horizontal (&[data-orientation='horizontal']);
+@custom-variant data-vertical (&[data-orientation='vertical']);
+
+@theme inline {
+  --font-heading: var(--font-sans);
+
+  /* Official Rhea / default shadcn radius scale (ui.shadcn.com/docs/theming). */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* ── Tokens (light) ───────────────────────────────────────────────────────── */
+
+.orchid-medical-viewer, .orchid-medical-viewer-portal,
+.orchid-mri-viewer, .orchid-mri-viewer-portal { /* deprecated aliases of .medical-viewer / .medical-viewer-portal */ }
+
+.medical-viewer,
+.medical-viewer-portal,
+.orchid-medical-viewer,
+.orchid-medical-viewer-portal,
+.orchid-mri-viewer,
+.orchid-mri-viewer-portal {
+  /* Official Rhea preset: radix-rhea / Lucide / Inter / radius default.
+     Tokens from https://ui.shadcn.com/r/colors/neutral.json and
+     https://ui.shadcn.com/docs/theming (Default Theme CSS). Repeated here
+     because Vite's `scopeThemeTokens` only rewrites the built asset — in
+     dev, Tailwind still emits `--radius-*` on `:root` where `--radius` is
+     undefined. Geist stays as the loaded webfont (Rhea's official face is
+     Inter; we do not add a second family). */
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  /* Neutral backdrop the image is letterboxed against. */
+  --viewer-canvas: oklch(0.96 0 0);
+  --viewer-canvas-foreground: oklch(0.35 0 0);
+}
+
+/* ── Tokens (dark) ────────────────────────────────────────────────────────── */
+
+.medical-viewer.dark,
+.medical-viewer-portal.dark,
+.orchid-medical-viewer.dark,
+.orchid-medical-viewer-portal.dark,
+.orchid-mri-viewer.dark,
+.orchid-mri-viewer-portal.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+
+  --viewer-canvas: oklch(0.12 0 0);
+  --viewer-canvas-foreground: oklch(0.8 0 0);
+}
+
+/* ── Scoped reset ─────────────────────────────────────────────────────────── */
+
+/*
+ * Everything here goes in `@layer base` on purpose. Unlayered rules outrank all
+ * layered ones in the cascade, so a bare `.medical-viewer * { padding: 0 }`
+ * would defeat every Tailwind spacing utility and collapse the entire UI. Being
+ * inside `base` puts it below `utilities`, which is exactly where a reset belongs.
+ */
+@layer base {
+  /*
+   * The subset of preflight the components actually rely on. `border: 0 solid`
+   * matters in particular: Tailwind's `border-b` and friends only set a width
+   * and assume the style already resolves to `solid`.
+   */
+  .medical-viewer,
+  .medical-viewer *,
+  .medical-viewer *::before,
+  .medical-viewer *::after,
+  .medical-viewer-portal,
+  .medical-viewer-portal *,
+  .medical-viewer-portal *::before,
+  .medical-viewer-portal *::after,
+  .orchid-medical-viewer,
+  .orchid-medical-viewer *,
+  .orchid-medical-viewer *::before,
+  .orchid-medical-viewer *::after,
+  .orchid-medical-viewer-portal,
+  .orchid-medical-viewer-portal *,
+  .orchid-medical-viewer-portal *::before,
+  .orchid-medical-viewer-portal *::after,
+  .orchid-mri-viewer,
+  .orchid-mri-viewer *,
+  .orchid-mri-viewer *::before,
+  .orchid-mri-viewer *::after,
+  .orchid-mri-viewer-portal,
+  .orchid-mri-viewer-portal *,
+  .orchid-mri-viewer-portal *::before,
+  .orchid-mri-viewer-portal *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid var(--border);
+    outline-color: var(--ring);
+    min-width: 0;
+  }
+
+  .medical-viewer,
+  .medical-viewer-portal,
+  .orchid-medical-viewer,
+  .orchid-medical-viewer-portal,
+  .orchid-mri-viewer,
+  .orchid-mri-viewer-portal {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    text-align: left;
+  }
+
+  .medical-viewer :where(button, input, select, textarea),
+  .medical-viewer-portal :where(button, input, select, textarea),
+  .orchid-medical-viewer :where(button, input, select, textarea),
+  .orchid-medical-viewer-portal :where(button, input, select, textarea),
+  .orchid-mri-viewer :where(button, input, select, textarea),
+  .orchid-mri-viewer-portal :where(button, input, select, textarea) {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background-color: transparent;
+  }
+
+  .medical-viewer :where(button, [role='button']),
+  .medical-viewer-portal :where(button, [role='button']),
+  .orchid-medical-viewer :where(button, [role='button']),
+  .orchid-medical-viewer-portal :where(button, [role='button']),
+  .orchid-mri-viewer :where(button, [role='button']),
+  .orchid-mri-viewer-portal :where(button, [role='button']) {
+    cursor: pointer;
+  }
+
+  .medical-viewer :where(button):disabled,
+  .medical-viewer-portal :where(button):disabled,
+  .orchid-medical-viewer :where(button):disabled,
+  .orchid-medical-viewer-portal :where(button):disabled,
+  .orchid-mri-viewer :where(button):disabled,
+  .orchid-mri-viewer-portal :where(button):disabled {
+    cursor: default;
+  }
+
+  .medical-viewer :where(svg, canvas, img),
+  .medical-viewer-portal :where(svg, canvas, img),
+  .orchid-medical-viewer :where(svg, canvas, img),
+  .orchid-medical-viewer-portal :where(svg, canvas, img),
+  .orchid-mri-viewer :where(svg, canvas, img),
+  .orchid-mri-viewer-portal :where(svg, canvas, img) {
+    display: block;
+    vertical-align: middle;
+  }
+
+  .medical-viewer :where(ol, ul),
+  .medical-viewer-portal :where(ol, ul),
+  .orchid-medical-viewer :where(ol, ul),
+  .orchid-medical-viewer-portal :where(ol, ul),
+  .orchid-mri-viewer :where(ol, ul),
+  .orchid-mri-viewer-portal :where(ol, ul) {
+    list-style: none;
+  }
+
+  /* ── Viewer chrome ──────────────────────────────────────────────────────── */
+
+  .medical-viewer,
+  .orchid-medical-viewer,
+  .orchid-mri-viewer {
+    position: relative;
+    display: flex;
+    min-height: 0;
+    background-color: var(--background);
+    overscroll-behavior: contain;
+  }
+
+  .medical-viewer [data-slot='scroll-area-viewport'],
+  .medical-viewer-portal [data-slot='scroll-area-viewport'],
+  .orchid-medical-viewer [data-slot='scroll-area-viewport'],
+  .orchid-medical-viewer-portal [data-slot='scroll-area-viewport'],
+  .orchid-mri-viewer [data-slot='scroll-area-viewport'],
+  .orchid-mri-viewer-portal [data-slot='scroll-area-viewport'] {
+    overscroll-behavior: contain;
+  }
+}

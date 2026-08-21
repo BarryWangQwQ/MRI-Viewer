@@ -1,0 +1,505 @@
+@import '../../src/styles.css';
+@source './**/*.{ts,tsx}';
+
+.medical-viewer-portal {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+.pg-page {
+  height: 100svh;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.pg-wrap {
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  overflow: hidden;
+  padding-block: 0.75rem;
+}
+
+.pg-split {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.pg-brand {
+  display: flex;
+  width: 30rem;
+  min-width: 30rem;
+  min-height: 0;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.pg-intro {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.pg-title {
+  font-size: 1.875rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.pg-lead {
+  max-width: 100%;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.pg-landing {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.pg-landing-frame {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+.pg-landing-copy {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 1;
+}
+
+.pg-landing .pg-code {
+  width: max-content;
+  min-width: 100%;
+  padding: 0.75rem 2.15rem 0.75rem 0.9rem;
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.pg-landing .pg-code,
+.pg-landing .pg-code .line {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: pre;
+}
+
+.pg-landing .pg-code .line {
+  min-width: max-content;
+  min-height: 1.7em;
+}
+
+.pg-skeleton {
+  height: 100%;
+}
+
+.pg-brand-examples {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.pg-example-scroll {
+  min-height: 0;
+  flex: 1 1 0;
+}
+
+.pg-example-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-right: 0.35rem;
+  padding-bottom: 0.25rem;
+}
+
+.pg-example-card {
+  display: block;
+  height: auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pg-example-card [data-slot='card'] {
+  height: auto;
+  min-width: 0;
+}
+
+.pg-theme-clinical.medical-viewer {
+  --radius: 0.25rem;
+  --radius-sm: 0.15rem;
+  --radius-md: 0.2rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.35rem;
+  --radius-2xl: 0.45rem;
+  --radius-3xl: 0.55rem;
+  --radius-4xl: 0.65rem;
+  --background: oklch(0.99 0.002 250);
+  --foreground: oklch(0.27 0.03 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.27 0.03 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.27 0.03 250);
+  --primary: oklch(0.46 0.11 248);
+  --primary-foreground: oklch(0.99 0.005 248);
+  --secondary: oklch(0.955 0.01 250);
+  --secondary-foreground: oklch(0.3 0.03 250);
+  --muted: oklch(0.955 0.008 250);
+  --muted-foreground: oklch(0.44 0.025 250);
+  --accent: oklch(0.94 0.02 248);
+  --accent-foreground: oklch(0.32 0.06 248);
+  --border: oklch(0.87 0.012 250);
+  --input: oklch(0.87 0.012 250);
+  --ring: oklch(0.5 0.1 248);
+  --viewer-canvas: oklch(0.945 0.008 250);
+  --viewer-canvas-foreground: oklch(0.32 0.03 250);
+}
+
+.pg-theme-midnight.medical-viewer,
+.pg-theme-midnight.medical-viewer.dark {
+  --radius: 0.3rem;
+  --radius-sm: 0.18rem;
+  --radius-md: 0.24rem;
+  --radius-lg: 0.3rem;
+  --radius-xl: 0.4rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.6rem;
+  --radius-4xl: 0.7rem;
+  --background: oklch(0.12 0.016 260);
+  --foreground: oklch(0.97 0.014 95);
+  --card: oklch(0.16 0.018 260);
+  --card-foreground: oklch(0.97 0.014 95);
+  --popover: oklch(0.16 0.018 260);
+  --popover-foreground: oklch(0.97 0.014 95);
+  --primary: oklch(0.84 0.13 85);
+  --primary-foreground: oklch(0.18 0.04 85);
+  --secondary: oklch(0.2 0.02 260);
+  --secondary-foreground: oklch(0.94 0.01 95);
+  --muted: oklch(0.2 0.018 260);
+  --muted-foreground: oklch(0.78 0.02 95);
+  --accent: oklch(0.22 0.03 85);
+  --accent-foreground: oklch(0.9 0.08 85);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.84 0.13 85);
+  --viewer-canvas: oklch(0.07 0.014 260);
+  --viewer-canvas-foreground: oklch(0.92 0.02 95);
+  font-size: 0.8125rem;
+}
+
+.pg-theme-editorial.medical-viewer,
+.pg-theme-editorial.medical-viewer.dark {
+  --radius: 1.25rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.25rem;
+  --background: oklch(0.2 0.028 305);
+  --foreground: oklch(0.96 0.012 305);
+  --card: oklch(0.24 0.032 305);
+  --card-foreground: oklch(0.96 0.012 305);
+  --popover: oklch(0.24 0.032 305);
+  --popover-foreground: oklch(0.96 0.012 305);
+  --primary: oklch(0.74 0.1 305);
+  --primary-foreground: oklch(0.18 0.03 305);
+  --secondary: oklch(0.26 0.03 305);
+  --secondary-foreground: oklch(0.94 0.015 305);
+  --muted: oklch(0.26 0.028 305);
+  --muted-foreground: oklch(0.74 0.03 305);
+  --accent: oklch(0.28 0.04 305);
+  --accent-foreground: oklch(0.9 0.05 305);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.74 0.1 305);
+  --viewer-canvas: oklch(0.14 0.03 305);
+  --viewer-canvas-foreground: oklch(0.9 0.02 305);
+  font-size: 0.8125rem;
+}
+
+.pg-example-card [data-slot='card-title'] {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.pg-example-card [data-slot='card-description'] {
+  line-height: 1.45;
+}
+
+.pg-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.pg-footer {
+  flex-shrink: 0;
+  padding-top: 0.25rem;
+  text-align: left;
+}
+
+.pg-footer p + p {
+  margin-top: 0.35rem;
+}
+
+.pg-stage {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+}
+
+.pg-stage [data-slot='tabs'] {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pg-stage [data-slot='tabs-content'][data-state='active'] {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pg-toolbar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pg-toolbar-start {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/*
+ * Portal reset inherits text-align:left and line-height:1.5 onto official
+ * Tabs triggers; Windows <button> UA boxes also ignore flex centering.
+ */
+.pg-toolbar [data-slot='tabs-list'] {
+  align-items: center;
+}
+
+.pg-toolbar [data-slot='tabs-trigger'] {
+  appearance: none;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: calc(100% - 1px);
+  padding: 0 0.625rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.pg-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pg-mask {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  user-select: none;
+}
+
+.pg-frame {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--background);
+  overscroll-behavior: contain;
+  @apply rounded-2xl;
+}
+
+.pg-preview {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  overscroll-behavior: contain;
+}
+
+.pg-preview > * {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.pg-code {
+  margin: 0;
+  padding: 1rem 1.15rem 1.25rem;
+  width: max-content;
+  min-width: 100%;
+  background: transparent;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+}
+
+/* Shiki classic: <span class="line"> plus a literal \n between lines.
+   `white-space: pre` + block .line painted each newline as an extra blank
+   row. Flex/grid drop whitespace-only text nodes, so one .line = one row. */
+.pg-code code {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  white-space: pre;
+}
+
+.pg-code .line {
+  min-height: 1.65em;
+}
+
+.pg-composed {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+}
+
+.pg-composed-mpr {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 2;
+  border-right: 1px solid var(--border);
+}
+
+.pg-composed-side {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.pg-status {
+  flex-shrink: 0;
+  border-top: 1px solid var(--border);
+  padding: 0.4rem 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 1024px) {
+  .pg-split {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .pg-brand {
+    width: 30rem;
+    min-width: 30rem;
+    max-width: 30rem;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pg-brand {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: auto;
+  }
+}
+
+@media (max-width: 1023px) and (max-height: 800px) {
+  .pg-wrap {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .pg-split {
+    gap: 0.75rem;
+  }
+
+  .pg-brand {
+    gap: 1rem;
+  }
+
+  .pg-title {
+    font-size: 1.875rem;
+  }
+
+  .pg-lead {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .pg-landing .pg-code {
+    padding: 0.75rem 2.15rem 0.75rem 0.9rem;
+    font-size: 0.75rem;
+    line-height: 1.55;
+  }
+
+  .pg-landing .pg-code .line {
+    min-height: 1.55em;
+  }
+
+  .pg-footer p + p {
+    margin-top: 0.2rem;
+  }
+}
