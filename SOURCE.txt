@@ -1,0 +1,20 @@
+Playground sample volumes (not part of the published library).
+
+MNI152NLin6Asym_T1_1mm.nii.gz  (10.5 MiB)
+  TemplateFlow name: tpl-MNI152NLin6Asym_res-01_T1w.nii.gz
+  https://templateflow.s3.amazonaws.com/tpl-MNI152NLin6Asym/tpl-MNI152NLin6Asym_res-01_T1w.nii.gz
+  FSL MNI ICBM 152 non-linear 6th generation (asymmetric), 182×218×182 at 1 mm.
+  Copyright (C) 1993–2009 Louis Collins, McConnell Brain Imaging Centre,
+  Montreal Neurological Institute, McGill University.
+  Permission to use, copy, modify, and distribute this software and its
+  documentation for any purpose and without fee is hereby granted, provided
+  that the above copyright notice appear in all copies.
+  https://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin6
+  Grabner et al., MICCAI 2006. https://doi.org/10.1007/11866763_8
+
+MNI152NLin6Asym_HOCPA_th25_1mm.nii.gz  (261 KiB)
+  TemplateFlow name: tpl-MNI152NLin6Asym_res-01_atlas-HOCPA_desc-th25_dseg.nii.gz
+  https://templateflow.s3.amazonaws.com/tpl-MNI152NLin6Asym/tpl-MNI152NLin6Asym_res-01_atlas-HOCPA_desc-th25_dseg.nii.gz
+  Harvard–Oxford cortical atlas, maximum-probability threshold 25%, same 1 mm space.
+  Copyright CMA / Harvard; distributed with FSL.
+  https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases
