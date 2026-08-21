@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Check, Copy } from 'lucide-react'
+import { ArrowUpRight, Check, Copy } from 'lucide-react'
 import {
   MedicalViewer,
   MultiAxisView,
@@ -42,6 +42,8 @@ import {
   MIDNIGHT_SNIPPET,
   VOLUME_SNIPPET,
 } from './snippets'
+
+const REPO_URL = 'https://github.com/BarryWangQwQ/MRI-Viewer'
 
 type ExampleId = 'drop-in' | 'composed' | 'headless' | 'themes' | 'volume-3d' | 'light'
 
@@ -140,7 +142,15 @@ export function App() {
         <div className="pg-split flex h-full min-h-0 w-full flex-1 flex-col lg:flex-row">
           <aside className="pg-brand flex h-full w-[30rem] min-w-[30rem] shrink-0 flex-col">
             <header className="pg-intro shrink-0">
-              <h1 className="pg-title text-3xl">MRI Viewer</h1>
+              <div className="pg-title-row">
+                <h1 className="pg-title text-3xl">MRI Viewer</h1>
+                <Button variant="outline" size="sm" className="pg-repo-link" asChild>
+                  <a href={REPO_URL} target="_blank" rel="noreferrer">
+                    GitHub
+                    <ArrowUpRight data-icon="inline-end" />
+                  </a>
+                </Button>
+              </div>
               <p className="pg-lead">
                 A modern, GPU-accelerated medical volume viewer for DICOM and NIfTI. Drop in
                 2D, MPR, and 3D with mask overlays — simple API, fast to integrate.
@@ -183,6 +193,11 @@ export function App() {
             </div>
 
             <footer className="pg-footer shrink-0">
+              <p className="pg-footer-repo">
+                <a href={REPO_URL} target="_blank" rel="noreferrer">
+                  github.com/BarryWangQwQ/MRI-Viewer
+                </a>
+              </p>
               <p className="text-[11px] font-normal leading-relaxed text-muted-foreground opacity-80">
                 Medical Viewer is MIT licensed. Built with Three.js, shadcn/ui (Radix), Lucide,
                 dicom-parser, nifti-reader-js, and marching-cubes-fast.

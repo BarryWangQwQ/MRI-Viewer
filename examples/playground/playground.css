@@ -50,11 +50,38 @@
   gap: 0.5rem;
 }
 
+.pg-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .pg-title {
   font-size: 1.875rem;
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1.15;
+}
+
+.pg-repo-link {
+  flex-shrink: 0;
+}
+
+.pg-footer-repo {
+  margin: 0 0 0.45rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.pg-footer-repo a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.pg-footer-repo a:hover {
+  color: var(--primary);
 }
 
 .pg-lead {
